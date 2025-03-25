@@ -47,16 +47,16 @@ public class Lab9 {
 
     private static int medianOfThree(int[] a, int leftSide, int rightSide){
         int mid = leftSide+(rightSide - leftSide ) / 2;
-        if(a[leftSide] > a[mid]){
-            swap(a, leftSide, mid);
-        }
-        if(a[leftSide] > a[rightSide]){
+        if (a[rightSide] < a[leftSide]){ 
             swap(a, leftSide, rightSide);
         }
-        if(a[mid] > a[rightSide]){
-            swap(a, mid, rightSide);
+        if (a[mid] < a[leftSide]){
+            swap(a, mid, leftSide);
         }
-        return a[mid];
+        if (a[rightSide] < a[mid]){
+            swap(a, rightSide, mid);
+        }
+        return mid;
     }
 
     private static int[] makeArray(int n) {
