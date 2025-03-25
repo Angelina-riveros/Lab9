@@ -29,7 +29,7 @@ public class Lab9 {
         swap(a, randPivot, rightSide);
         int pivotValue = a[rightSide];
         int i = leftSide - 1;
-        for(int j = leftSide; j <= rightSide; j++){
+        for(int j = leftSide; j < rightSide; j++){
             if(a[j] <= pivotValue){
                 i++;
                 swap(a, i, j);
