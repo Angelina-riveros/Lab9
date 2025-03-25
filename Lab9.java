@@ -9,40 +9,54 @@ public class Lab9 {
         return quickSelect(a, 0, a.length - 1, k - 1);
     }
     public static int quickSelect(int[] a, int leftSide, int rightSide, int k){
-        if(leftSide == rightSide){
-            return a[leftSide];
-        }
+        Random rand = new Random();
+        while(leftSide <= rightSide){
         int pivot = partition(a, leftSide, rightSide);
-        if(k == pivot){
-            return a[k];
+            if(k == pivot){
+                return a[k];
+            }else if(k < pivot){ 
+                return rightSide = pivot - 1;
+            }else{ 
+                return leftSide = pivot + 1;
+            }
         }
-        else if(k < pivot){ 
-            return quickSelect(a, leftSide, pivot - 1, k);
-        }else{ 
-            return quickSelect(a, pivot + 1, rightSide, k);
-        }
+        return -1;
     }
 
     public static int partition(int[] a, int leftSide, int rightSide){
-        Random rand = new Random();
-        int randPivot = rand.nextInt(rightSide - leftSide +1) + leftSide;
-        swap(a, randPivot, rightSide);
+        Random ran = new Random();
+        int pivotPlace = medianOfThree(a, leftSide, rightSide);
+        swap(a, pivotPlace, rightSide);
         int pivotValue = a[rightSide];
-        int i = leftSide - 1;
+        int i = leftSide;
         for(int j = leftSide; j <= rightSide; j++){
             if(a[j] <= pivotValue){
-                i++;
                 swap(a, i, j);
+                i++;
             }
         }
-        swap(a, i + 1, rightSide);
-        return i + 1;
+        swap(a, i, rightSide);
+        return i;
     }
 
     public static void swap(int[] a, int i, int j){
         int temp = a[i];
         a[i] = a[j];
         a[j] = temp;
+    }
+
+    private static int medianOfThree(int[] a, int leftSide, int rightSide){
+        int mid = leftSide+(rightSide - leftSide ) / 2;
+        if(a[leftSide] > a[mid]){
+            swap(a, leftSide, mid);
+        }
+        if(a[leftSide] > a[rightSide]){
+            swap(a, leftSide, rightSide);
+        }
+        if(a[mid] > a[rightSide]){
+            swap(a, mid, rightSide);
+        }
+        return a[mid];
     }
 
     private static int[] makeArray(int n) {
